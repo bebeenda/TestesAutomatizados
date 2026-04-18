@@ -24,6 +24,13 @@ public interface VeterinarioRepository extends JpaRepository<Veterinario, Intege
    List<Veterinario> findByNomeLike(String nome);
    List<Veterinario> findByNomeLikeIgnoreCase(String nome);
 
+
+     //Ciclo 3 - filtros para salário
+    List<Veterinario> findBySalarioGreaterThan(Double salario);
+    List<Veterinario> findBySalarioLessThan(Double salario);
+    List<Veterinario> findBySalarioBetween(Double min, Double max);
+
+
 }
 
 
