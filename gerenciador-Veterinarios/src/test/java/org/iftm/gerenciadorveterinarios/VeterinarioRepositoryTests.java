@@ -1,14 +1,14 @@
 package org.iftm.gerenciadorveterinarios;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.iftm.gerenciadorveterinarios.entities.Veterinario;
 import org.iftm.gerenciadorveterinarios.repositories.VeterinarioRepository;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @Transactional
@@ -129,7 +129,7 @@ public class VeterinarioRepositoryTests {
     @Test
     void testFindBySalarioGreaterThan(){
         //Arrange
-        double salario = 5000.00;
+        BigDecimal salario = new BigDecimal("5000.0");
 
         //Act
         List<Veterinario> resultado = repository.findBySalarioGreaterThan(salario);
@@ -142,7 +142,7 @@ public class VeterinarioRepositoryTests {
     @Test
     void testFindBySalarioLessThan(){
         //Arrange
-        double salario = 5000.00;
+        BigDecimal salario = new BigDecimal("5000.0");
 
         //Act
         List<Veterinario> resultado = repository.findBySalarioLessThan(salario);
@@ -153,17 +153,41 @@ public class VeterinarioRepositoryTests {
 
 
     //teste 3- salario entre 4000  e 6000, tem Mariana, Pedro, Fernanda = 3
+   @Test
+void testFindBySalarioBetween() {
+    // Arrange
+    BigDecimal min = new BigDecimal("4000.0");
+    BigDecimal max = new BigDecimal("6000.0");
+    // Act
+    List<Veterinario> resultado = repository.findBySalarioBetween(min, max);
+    // Assert
+    assertEquals(3, resultado.size());
+}
+
+
+    //Ciclo 4
+    //Busca "Gustavo", altera nome e salário, verifica que novo dado é encontrado e antigo não
+
     @Test
-    void testFindBySalarioBetween(){
+    void testUpdate_AlteraNomeESalario(){
         //Arrange
-        double min = 4000.00;
-        double max = 6000.00;
+        List<Veterinario> antes = repository.findByNome("Gustavo");
+        assertEquals(1, antes.size());
+        Veterinario vet = antes.get(0);
 
         //Act
-        List<Veterinario> resultado = repository.findBySalarioBetween(min,max);
+       vet.setNome("THIAGO");
+       vet.setSalario(new BigDecimal("8.000"));
+       repository.save(vet);
 
-        //Assert
-        assertEquals(3, resultado.size());
+       //Assert
+        List<Veterinario> novo = repository.findByNome("THIAGO");
+        List<Veterinario> antigo = repository.findByNome("Gustavo");
+
+        assertEquals(1, novo.size());
+        assertEquals(0, antigo.size());
+        assertEquals(new BigDecimal("8.000"), novo.get(0).getSalario());
+
     }
 
 }

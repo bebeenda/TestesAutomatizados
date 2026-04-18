@@ -1,5 +1,6 @@
 package org.iftm.gerenciadorveterinarios.repositories;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.iftm.gerenciadorveterinarios.entities.Veterinario;
@@ -26,10 +27,9 @@ public interface VeterinarioRepository extends JpaRepository<Veterinario, Intege
 
 
      //Ciclo 3 - filtros para salário
-    List<Veterinario> findBySalarioGreaterThan(Double salario);
-    List<Veterinario> findBySalarioLessThan(Double salario);
-    List<Veterinario> findBySalarioBetween(Double min, Double max);
-
+   List<Veterinario> findBySalarioGreaterThan(BigDecimal salario);
+   List<Veterinario> findBySalarioLessThan(BigDecimal salario);
+   List<Veterinario> findBySalarioBetween(BigDecimal min, BigDecimal max);
 
 }
 
