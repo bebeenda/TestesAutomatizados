@@ -77,4 +77,48 @@ public class VeterinarioRepositoryTests {
         assertEquals(1, resultado.size());
         assertEquals("FERNANDA", resultado.get(0).getNome());
     }
+
+
+    //Ciclo 2
+
+    //teste 1 - buscando por %an% e vai encontrar Fernanda e Mariana
+
+    @Test
+    void testFindByNomeLike_MaisdeUmNome(){
+        //Arrange
+        String silaba = "%an%";
+
+        //Act
+        List<Veterinario> resultado = repository.findByNomeLikeIgnoreCase(silaba);
+
+        //Assert
+        assertEquals(2, resultado.size());
+    }
+
+    //teste 2 - busca "%Lucas" mas não existe no banco então retorna 0
+
+    @Test
+    void testFindByNomeLike_NomeInexistente(){
+        //Arrange
+        String silaba ="%Lucas%";
+
+        //Act
+        List<Veterinario> resultado = repository.findByNomeLikeIgnoreCase(silaba);
+
+        //Assert
+        assertEquals(0, resultado.size());
+    }
+
+    //teste 3 - busca por "%" retorna todos os registros
+    @Test
+    void testFindByNomeLike_RetornaTodos(){
+        //Arrange
+        String silaba = "%";
+
+        //Act
+        List<Veterinario> resultado = repository.findByNomeLikeIgnoreCase(silaba);
+
+        //Assert
+        assertEquals(5, resultado.size());
+    }
 }
