@@ -11,7 +11,11 @@ public interface VeterinarioRepository extends JpaRepository<Veterinario, Intege
    public List<Veterinario> findByNomeContains(String nome);
 
 
-   
+   //Ciclo 1 - buscando por um nome exato
+
+    List<Veterinario> findByNome(String nome); // exato (case sensitive)
+    List<Veterinario> findByNomeIgnoreCase(String nome);// case insensitive aqui pega tanto maiusculo quanto minusculo
+
 
 }
 
