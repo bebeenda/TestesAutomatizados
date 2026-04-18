@@ -121,4 +121,49 @@ public class VeterinarioRepositoryTests {
         //Assert
         assertEquals(5, resultado.size());
     }
+
+
+    //Ciclo 3
+
+    //teste 1 - salário maior que 5000, traz fernanda e Beatriz, ou seja 2 
+    @Test
+    void testFindBySalarioGreaterThan(){
+        //Arrange
+        double salario = 5000.00;
+
+        //Act
+        List<Veterinario> resultado = repository.findBySalarioGreaterThan(salario);
+
+        //Assert
+        assertEquals(2, resultado.size());
+    }
+
+    //teste 2 - salario menor que 5000, traz Mariana e Gustavo = 2
+    @Test
+    void testFindBySalarioLessThan(){
+        //Arrange
+        double salario = 5000.00;
+
+        //Act
+        List<Veterinario> resultado = repository.findBySalarioLessThan(salario);
+
+        //Assert
+        assertEquals(2, resultado.size());
+    }
+
+
+    //teste 3- salario entre 4000  e 6000, tem Mariana, Pedro, Fernanda = 3
+    @Test
+    void testFindBySalarioBetween(){
+        //Arrange
+        double min = 4000.00;
+        double max = 6000.00;
+
+        //Act
+        List<Veterinario> resultado = repository.findBySalarioBetween(min,max);
+
+        //Assert
+        assertEquals(3, resultado.size());
+    }
+
 }
