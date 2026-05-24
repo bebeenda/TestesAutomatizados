@@ -43,13 +43,13 @@ public class VeterinarioService {
         repositorio.delete(veterinario);
     }
 
-//     @Transactional
-//     public void apagarPorId(Integer id) {
-//     Optional<Veterinario> vet = repositorio.findById(id);
-//     if (vet.isEmpty())
-//     {
-//         throw new RuntimeException("Veterinário não encontrado com id: " + id);
-//     }
-//     repositorio.delete(vet.get());
-// }
+    @Transactional
+    public void apagarPorId(Integer id) {
+    Optional<Veterinario> vet = repositorio.findById(id);
+    if (vet.isEmpty())
+    {
+        throw new RuntimeException("Veterinário não encontrado com id: " + id);
+    }
+    repositorio.delete(vet.get());
+}
 }
