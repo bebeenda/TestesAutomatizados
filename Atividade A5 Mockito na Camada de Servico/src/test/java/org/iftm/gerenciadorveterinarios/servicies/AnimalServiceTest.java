@@ -38,7 +38,7 @@ public class AnimalServiceTest {
         Animal animalEntrada = new Animal(null, "Kiwi Abacaxi", "cachorro", 3, false);
 
         // mock retorna o animal já com internado = true (simulando o save)
-        Animal animalSalvo = new Animal(1, "Kiwi abacaxi", "cachorro", 3, true);
+        Animal animalSalvo = new Animal(1, "Kiwi Abacaxi", "cachorro", 3, true);
         when(repositorio.save(any(Animal.class))).thenReturn(animalSalvo);
 
         // ACT

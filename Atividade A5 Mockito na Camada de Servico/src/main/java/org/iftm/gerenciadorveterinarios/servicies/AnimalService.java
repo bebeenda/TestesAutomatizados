@@ -10,35 +10,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Service
 public class AnimalService {
 
-    // Espécies atendidas pela clínica
     private static final List<String> ESPECIES_PERMITIDAS =
             Arrays.asList("cachorro", "gato", "coelho", "pássaro", "hamster");
 
     @Autowired
     private AnimalRepository repositorio;
 
-   
-    // CICLO 1: Cadastro com status padrão (se internado = true)
-   
+    public Optional<Animal> buscaAnimaisPeloId(Integer id) {
+        return repositorio.findById(id);
+    }
+
     @Transactional
     public Animal cadastrar(Animal animal) {
-        // Ciclo 2: validação de espécie
         if (animal.getEspecie() == null ||
                 !ESPECIES_PERMITIDAS.contains(animal.getEspecie().toLowerCase())) {
             throw new IllegalArgumentException(
                     "Espécie não atendida: " + animal.getEspecie());
         }
-        // Ciclo 1: status padrão
         animal.setInternado(true);
         return repositorio.save(animal);
     }
 
-    // CICLO 3: Ação específica — dar alta ao animal
-  
     @Transactional
     public Animal darAlta(Integer id) {
         Optional<Animal> optional = repositorio.findById(id);
